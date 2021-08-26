@@ -9,33 +9,20 @@ EMSCRIPTEN_BINDINGS(constant_bindings) {
 
 	function("setupAR2", &setupAR2);
 
-	function("_addMarker", &addMarker);
-	function("_addMultiMarker", &addMultiMarker);
 	function("_addNFTMarker", &addNFTMarker);
-
-	function("getMultiMarkerNum", &getMultiMarkerNum);
-	function("getMultiMarkerCount", &getMultiMarkerCount);
 
 	function("_loadCamera", &loadCamera);
 
-	function("setMarkerInfoDir", &setMarkerInfoDir);
-	function("setMarkerInfoVertex", &setMarkerInfoVertex);
-
-	function("getTransMatSquare", &getTransMatSquare);
-	function("getTransMatSquareCont", &getTransMatSquareCont);
-
-	function("getTransMatMultiSquare", &getTransMatMultiSquare);
-	function("getTransMatMultiSquareRobust", &getTransMatMultiSquareRobust);
-
 	function("detectMarker", &detectMarker);
-	function("getMarkerNum", &getMarkerNum);
-
 	function("detectNFTMarker", &detectNFTMarker);
-
-	function("getMultiEachMarker", &getMultiEachMarkerInfo);
-	function("getMarker", &getMarkerInfo);
 	function("getNFTMarker", &getNFTMarkerInfo);
 
+	/* nft marker struct */
+	value_object<nftMarker>("nftMarker")
+	.field("id", &nftMarker::id_NFT)
+  .field("width", &nftMarker::width_NFT)
+  .field("height", &nftMarker::height_NFT)
+  .field("dpi", &nftMarker::dpi_NFT);
 
 	/* AR Toolkit C APIS */
 	function("setDebugMode", &setDebugMode);
@@ -58,21 +45,8 @@ EMSCRIPTEN_BINDINGS(constant_bindings) {
 	function("setThreshold", &setThreshold);
 	function("getThreshold", &getThreshold);
 
-	function("setPatternDetectionMode", &setPatternDetectionMode);
-	function("getPatternDetectionMode", &getPatternDetectionMode);
-
-	function("setPattRatio", &setPattRatio);
-	function("getPattRatio", &getPattRatio);
-
-	function("setMatrixCodeType", &setMatrixCodeType);
-	function("getMatrixCodeType", &getMatrixCodeType);
-
-	function("setLabelingMode", &setLabelingMode);
-	function("getLabelingMode", &getLabelingMode);
-
 	function("setImageProcMode", &setImageProcMode);
 	function("getImageProcMode", &getImageProcMode);
-
 
 	/* errors */
 	constant("ERROR_ARCONTROLLER_NOT_FOUND", ARCONTROLLER_NOT_FOUND);
@@ -84,11 +58,6 @@ EMSCRIPTEN_BINDINGS(constant_bindings) {
 	constant("AR_DEBUG_ENABLE", AR_DEBUG_ENABLE);
 	constant("AR_DEFAULT_DEBUG_MODE", AR_DEFAULT_DEBUG_MODE);
 
-	/* arLabelingMode */
-	constant("AR_LABELING_WHITE_REGION", AR_LABELING_WHITE_REGION);
-	constant("AR_LABELING_BLACK_REGION", AR_LABELING_BLACK_REGION);
-	constant("AR_DEFAULT_LABELING_MODE", AR_DEFAULT_LABELING_MODE);
-
 	/* for arlabelingThresh */
 	constant("AR_DEFAULT_LABELING_THRESH", AR_DEFAULT_LABELING_THRESH);
 
@@ -96,20 +65,6 @@ EMSCRIPTEN_BINDINGS(constant_bindings) {
 	constant("AR_IMAGE_PROC_FRAME_IMAGE", AR_IMAGE_PROC_FRAME_IMAGE);
 	constant("AR_IMAGE_PROC_FIELD_IMAGE", AR_IMAGE_PROC_FIELD_IMAGE);
 	constant("AR_DEFAULT_IMAGE_PROC_MODE", AR_DEFAULT_IMAGE_PROC_MODE);
-
-	/* for arPatternDetectionMode */
-	constant("AR_TEMPLATE_MATCHING_COLOR", AR_TEMPLATE_MATCHING_COLOR);
-	constant("AR_TEMPLATE_MATCHING_MONO", AR_TEMPLATE_MATCHING_MONO);
-	constant("AR_MATRIX_CODE_DETECTION", AR_MATRIX_CODE_DETECTION);
-	constant("AR_TEMPLATE_MATCHING_COLOR_AND_MATRIX", AR_TEMPLATE_MATCHING_COLOR_AND_MATRIX);
-	constant("AR_TEMPLATE_MATCHING_MONO_AND_MATRIX", AR_TEMPLATE_MATCHING_MONO_AND_MATRIX);
-	constant("AR_DEFAULT_PATTERN_DETECTION_MODE", AR_DEFAULT_PATTERN_DETECTION_MODE);
-
-	/* for arMarkerExtractionMode */
-	constant("AR_USE_TRACKING_HISTORY", AR_USE_TRACKING_HISTORY);
-	constant("AR_NOUSE_TRACKING_HISTORY", AR_NOUSE_TRACKING_HISTORY);
-	constant("AR_USE_TRACKING_HISTORY_V2", AR_USE_TRACKING_HISTORY_V2);
-	constant("AR_DEFAULT_MARKER_EXTRACTION_MODE", AR_DEFAULT_MARKER_EXTRACTION_MODE);
 
 	/* for arGetTransMat */
 	constant("AR_MAX_LOOP_COUNT", AR_MAX_LOOP_COUNT);
@@ -121,13 +76,6 @@ EMSCRIPTEN_BINDINGS(constant_bindings) {
 	constant("AR_LOG_LEVEL_WARN", AR_LOG_LEVEL_WARN + 0);
 	constant("AR_LOG_LEVEL_ERROR", AR_LOG_LEVEL_ERROR + 0);
 	constant("AR_LOG_LEVEL_REL_INFO", AR_LOG_LEVEL_REL_INFO + 0);
-
-	constant("AR_MATRIX_CODE_3x3", AR_MATRIX_CODE_3x3 + 0);
-	constant("AR_MATRIX_CODE_3x3_HAMMING63", AR_MATRIX_CODE_3x3_HAMMING63 + 0);
-	constant("AR_MATRIX_CODE_3x3_PARITY65", AR_MATRIX_CODE_3x3_PARITY65 + 0);
-	constant("AR_MATRIX_CODE_4x4", AR_MATRIX_CODE_4x4 + 0);
-	constant("AR_MATRIX_CODE_4x4_BCH_13_9_3", AR_MATRIX_CODE_4x4_BCH_13_9_3 + 0);
-	constant("AR_MATRIX_CODE_4x4_BCH_13_5_5", AR_MATRIX_CODE_4x4_BCH_13_5_5 + 0);
 
 	constant("AR_LABELING_THRESH_MODE_MANUAL", AR_LABELING_THRESH_MODE_MANUAL + 0);
 	constant("AR_LABELING_THRESH_MODE_AUTO_MEDIAN", AR_LABELING_THRESH_MODE_AUTO_MEDIAN + 0);
