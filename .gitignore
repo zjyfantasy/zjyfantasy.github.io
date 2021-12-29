@@ -1,3 +1,4 @@
-doc/reference
-node_modules
-build/*.bc
+.DS_Store
+.atom-live-server.json
+node_modules/*
+package-lock.json

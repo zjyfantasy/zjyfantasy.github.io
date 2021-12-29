@@ -1,305 +1,246 @@
-# ARToolKit.js
 
-Emscripten port of [ARToolKit](https://github.com/artoolkitx/artoolkit5) to JavaScript.
+# AR.js - Augmented Reality on the Web
 
-## MArkers Types
-
-JSARToolKit5 support these types of markers:
-- Square pictorial markers
-- Square barcode markers
-- Multi square markers set
-- NFT (natural feature tracking) markers
-
----
-**NOTE:**
-
-When writing JavaScript and making changes be aware that the emscripten uglifier does not support the ES6 syntax.
+<a href="https://xscode.com/nicolocarpignoli/AR.js">
+  <img src="./AR-JS-banner.png" />
+</a>
 
 ---
 
-## Project Structure
+[![Build Status](https://travis-ci.org/jeromeetienne/AR.js.svg?branch=master)](https://travis-ci.org/jeromeetienne/AR.js)
+[![Gitter chat](https://badges.gitter.im/AR-js/Lobby.png)](https://gitter.im/AR-js/Lobby)
+[![Twitter Follow](https://img.shields.io/twitter/follow/nicolocarp.svg?style=plastic&label=nicolocarpignoli-twitter&style=plastic)](https://twitter.com/nicolocarp)
+[![Twitter Follow](https://img.shields.io/twitter/follow/jerome_etienne.svg?style=plastic&label=jeromeetienne-twitter&style=plastic)](https://twitter.com/jerome_etienne)
 
-- `build/` (compiled debug and minified versions of ARToolKit.js)
-- `doc/` (documentation, coming...)
-- `emscripten/` (source code for ARToolKit.js)
-- `examples/` (demos and examples using ARToolKit.js)
-- `js/` (compiled versions of ARToolKit.js with Three.js helper api)
-- `tools/` (build scripts for building ARToolKit.js)
+AR.js is a lightweight library for Augmented Reality on the Web, coming with features like Image Tracking, Location-based AR and Marker tracking.
 
-## WebAssembly
+Welcome to the official repository!
 
-JSARToolKit5 supports WebAssembly. The libary builds two WebAssembly artifacts during the build process. These are ```build/artoolkit_wasm.js``` and ```build/artoolkit_wasm.wasm```. To use those, include the artoolkit_wasm.js into your html page and define ```var artoolkit_wasm_url = '<<PATH TO>>/artoolkit_wasm.wasm';``` before loading the artoolkit_wasm.js file, like this:
+This project has been created by [@jeromeetienne](https://github.com/jeromeetienne), previously managed by Nicolò Carpignoli and it is now maintained by the AR.js org.
 
-```js
-<script type='text/javascript'>
-      var artoolkit_wasm_url = '../build/artoolkit_wasm.wasm';
-</script>
-<script src="../build/artoolkit_wasm.js"></script>
-```
-As loading the WebAssembly artifact is done asynchronously, there is a callback that is called when everything is ready.
+🚀For frequent updates on AR.js you can follow [@the official Twitter account](https://twitter.com/ARjs_Library) and Watch this repo!
 
-```js
-window.addEventListener('artoolkit-loaded', () => {
-    //do artoolkit stuff here
-});
-```
-See examples/simple_image_wasm.html for details.
+Logo is courtesy of <a href="https://twitter.com/viralinfo"> Simon Poulter </a>.
 
-## Clone the repository
+------
 
-1. Clone this repository
-2. Clone ARToolKit5 project to get the latest source files. From within jsartoolkit5 directory do `git submodule update --init`. If you already cloned ARToolKit5 to a different directory you can:
-  - create a link in the `jsartoolkit5/emscripten/` directory that points to ARToolKit5 (`jsartoolkit5/emscripten/artoolkit5`) (Linux and macOS only)
-  - or, set the `ARTOOLKIT5_ROOT` environment variable to point to your ARToolKit5 clone
-  - or, change the `tools/makem.js` file to point to your artoolkit5 clone (line 20)
+<h2>You can get paid support and new features for AR.js. Check <a href="https://xscode.com/nicolocarpignoli/AR.js"> this link. </a></h2>
 
-## Build the project
+------
 
-### Recommended: Build using Docker
 
-1. Install Docker (if you havn't already): [get Docker](https://www.docker.com/)
-2. Clone artoolkit5 repository on your machine: `git submodule update --init`
-3. `npm install`
-4. From inside jsartoolkit5 directory run `docker run -dit --name emscripten -v $(pwd):/src trzeci/emscripten-slim:latest bash` to download and start the container, in preparation for the build
-5. `docker exec emscripten npm run build-local` to build JS version of artoolkit5
-6. `docker stop emscripten` to stop the container after the build, if needed
-7. `docker rm emscripten` to remove the container
-8. `docker rmi trzeci/emscripten-slim:latest` to remove the Docker image, if you don't need it anymore
-9. The build artifacts will appear in `/build`. There's a build with debug symbols in `artoolkit.debug.js` file and the optimized build with bundled JS API in `artoolkit.min.js`; also, a WebAssembly build artoolkit_wasm.js and artoolkit_wasm.wasm
+### ⚡️AR.js has now an official Documentation!⚡️
+### Check it out: [AR.js Official Documentation](https://ar-js-org.github.io/AR.js-Docs/).
 
-### ⚠️ Not recommended ⚠️ : Build local with manual emscripten setup
+If you want to give a first look at AR.js potential, you can continue with this Readme.
 
-To prevent issues with Emscripten setup and to not have to maintain several build environments (macOS, Windows, Linux) we only maintain the **Build using Docker**. Following are the instructions of the last know build on Linux which we verified are working. **Use at own risk.**
-** Not working on macOS!**
+-----
 
-1. Install build tools
-  1. Install node.js (https://nodejs.org/en/)
-  2. Install python2 (https://www.python.org/downloads/)
-  3. Install emscripten (https://emscripten.org/docs/getting_started/downloads.html#download-and-install)
-     We used emscripten version **1.39.5-fastcomp** ~~1.38.44-fastcomp~~
 
-jsartoolkit5 aim is to create a Javascript version of artoolkit5. First, you need the artoolkit5 repository on your machine:
-2. Clone ARToolKit5 project to get the latest source files. From within jsartoolkit5 directory do `git submodule update --init`. If you already cloned ARToolKit5 to a different directory you can:
-  - create a link in the `jsartoolkit5/emscripten/` directory that points to ARToolKit5 (`jsartoolkit5/emscripten/artoolkit5`)
-  - or, set the `ARTOOLKIT5_ROOT` environment variable to point to your ARToolKit5 clone
-  - or, change the `tools/makem.js` file to point to your artoolkit5 clone (line 20)
+⚡️ AR.js is coming in two, different builds. They are both maintained. They are exclusive.
 
-3. Building
-  1. Make sure `EMSCRIPTEN` env variable is set (e.g. `EMSCRIPTEN=/usr/lib/emsdk_portable/emscripten/master/ node tools/makem.js`
-  3. Run `npm install`
-  4. Run `npm run build-local`
+Please import the one you need for your project, not both:
 
-During development, you can run ```npm run watch```, it will rebuild the library everytime you change ```./js/``` directory.
+- **AR.js with Image Tracking + Location Based AR:**
 
-4. The built ASM.js files are in `/build`. There's a build with debug symbols in `artoolkit.debug.js` and the optimized build with bundled JS API in `artoolkit.min.js`.
+  - AFRAME version: https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js
 
-## ARToolKit JS API
+  - three.js version: https://raw.githack.com/AR-js-org/AR.js/master/three.js/build/ar-nft.js
 
-```js
-<script src="../build/artoolkit.min.js">
-// include optimized ASM.js build and JS API
-</script>
+- **AR.js with Marker Tracking + Location Based AR:**
+
+  - AFRAME version: https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js
+
+  - three.js version: https://raw.githack.com/AR-js-org/AR.js/master/three.js/build/ar.js
+
+
+You can also import a specific version replacing `master` keyword with version tag:
+
+```html
+  <script src="https://raw.githack.com/AR-js-org/AR.js/3.3.3/aframe/build/aframe-ar-nft.js">
 ```
 
-## ARToolKit JS debug build
+## Get started
 
-```js
-<script async src="../build/artoolkit.debug.js">
-// - include debug build
-</script>
-<script src="../js/artoolkit.api.js">
-// - include JS API
-</script>
+### 🖼 **Image Tracking**
+
+Please follow these simple steps:
+
+- Create a new project with the code below (or [open this live example](https://ar-js-org.github.io/AR.js/aframe/examples/image-tracking/nft/) and go directly to the last step)
+- Run it on a server
+- Open the website on your phone
+- Scan [this picture](https://raw.githubusercontent.com/AR-js-org/AR.js/master/aframe/examples/image-tracking/nft/trex-image-big.jpeg) to see content through the camera.
+
+```html
+<script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1c2407b26c61958baa93967b5412487cd94b290b/dist/aframe-master.min.js"></script>
+<script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+
+<style>
+  .arjs-loader {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .arjs-loader div {
+    text-align: center;
+    font-size: 1.25em;
+    color: white;
+  }
+</style>
+
+<body style="margin : 0px; overflow: hidden;">
+  <!-- minimal loader shown until image descriptors are loaded -->
+  <div class="arjs-loader">
+    <div>Loading, please wait...</div>
+  </div>
+  <a-scene
+    vr-mode-ui="enabled: false;"
+    renderer="logarithmicDepthBuffer: true;"
+    embedded
+    arjs="trackingMethod: best; sourceType: webcam;debugUIEnabled: false;"
+  >
+    <!-- we use cors proxy to avoid cross-origin problems ATTENTION! you need to set up your server -->
+    <a-nft
+      type="nft"
+      url="your-server/https://raw.githack.com/AR-js-org/AR.js/master/aframe/examples/image-tracking/nft/trex/trex-image/trex"
+      smooth="true"
+      smoothCount="10"
+      smoothTolerance=".01"
+      smoothThreshold="5"
+    >
+      <a-entity
+        gltf-model="your-server/https://raw.githack.com/AR-js-org/AR.js/master/aframe/examples/image-tracking/nft/trex/scene.gltf"
+        scale="5 5 5"
+        position="50 150 0"
+      >
+      </a-entity>
+    </a-nft>
+    <a-entity camera></a-entity>
+  </a-scene>
+</body>
 ```
 
-## ARToolKit Three.js helper API
+### 🌍Location Based Example
 
-```js
-<script src="../build/artoolkit.min.js">
-// - include optimized ASM.js build and JS API
-</script>
-<script src="js/third_party/three.js/three.min.js">
-// - include Three.js
-</script>
-<script src="../js/artoolkit.three.js">
-// - include Three.js helper API
-</script>
-<script>
-window.ARThreeOnLoad = function () {
-console.log("Three.js helper API loaded");
-};
-if (window.ARController && window.ARController.getUserMediaThreeScene) {
-ARThreeOnLoad();
-};
-</script>
+Please follow these simple steps:
+
+- Create a new project with the following snippet, and change `add-your-latitude` and `add-your-longitude` with your latitude and longitude, without the `<>`.
+- Run it on a server
+- Activate GPS on your phone and navigate to the example URL
+- Look around. You should see the text looking at you, appearing in the requested position, even if you look around and move.
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>GeoAR.js demo</title>
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+  </head>
+
+  <body style="margin: 0; overflow: hidden;">
+    <a-scene
+      vr-mode-ui="enabled: false"
+      embedded
+      arjs="sourceType: webcam; debugUIEnabled: false;"
+    >
+      <a-text
+        value="This content will always face you."
+        look-at="[gps-camera]"
+        scale="120 120 120"
+        gps-entity-place="latitude: <add-your-latitude>; longitude: <add-your-longitude>;"
+      ></a-text>
+      <a-camera gps-camera rotation-reader> </a-camera>
+    </a-scene>
+  </body>
+</html>
 ```
 
-## Examples
+### 🔲 Marker Based Example
 
-See `examples/` for examples on using the raw API and the Three.js helper API.
+Please follow this simple steps:
 
-The basic operation goes like this:
+- Create a new project with the code below (or [open this live example](https://ar-js-org.github.io/AR.js/aframe/examples/marker-based/basic.html) and go directly to the last step)
+- Run it on a server
+- Open the website on your phone
+- Scan [this picture](https://raw.githubusercontent.com/AR-js-org/AR.js/master/data/images/hiro.png) to see content through the camera.
 
-1. Load a `ARCameraParam` object
-2. Create a `ARController` object
-3. Set pattern detection mode
-4. Load pattern markers or multimarkers if needed
-5. Add a `'getMarker'` event listener
-6. Call `ARController.process(img)`
-
-### Basic example with an image source and a pattern marker ( hiro )
-
-```js
-<script src="../build/artoolkit.min.js"></script>
-<script>
-  var param = new ARCameraParam();
-
-  param.onload = function () {
-    var img = document.getElementById('my-image');
-    var ar = new ARController(img.width, img.height, param);
-
-    // Set pattern detection mode to detect both pattern markers and barcode markers.
-    // This is more error-prone than detecting only pattern markers (default) or only barcode markers.
-    //
-    // For barcode markers, use artoolkit.AR_MATRIX_CODE_DETECTION
-    // For pattern markers, use artoolkit.AR_TEMPLATE_MATCHING_COLOR
-    //
-    ar.setPatternDetectionMode(artoolkit.AR_TEMPLATE_MATCHING_COLOR_AND_MATRIX);
-
-    ar.addEventListener('markerNum', function (ev) {
-      console.log('got markers', markerNum);
-    });
-    ar.addEventListener('getMarker', function (ev) {
-      console.log('found marker?', ev);
-    });
-    ar.loadMarker('Data/patt.hiro', function (marker) {
-      console.log('loaded marker', marker);
-      ar.process(img);
-    });
-};
-
-  param.src = 'Data/camera_para.dat';
-</script>
+```html
+<!DOCTYPE html>
+<html>
+    <script src="https://aframe.io/releases/1.0.0/aframe.min.js"></script>
+    <!-- we import arjs version without NFT but with marker + location based support -->
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+    <body style="margin : 0px; overflow: hidden;">
+        <a-scene embedded arjs>
+        <a-marker preset="hiro">
+            <!-- we use cors proxy to avoid cross-origin problems ATTENTION! you need to set up your server -->
+            <a-entity
+            position="0 -1 0"
+            scale="0.05 0.05 0.05"
+            gltf-model="your-server/https://raw.githack.com/AR-js-org/AR.js/master/aframe/examples/image-tracking/nft/trex/scene.gltf"
+            ></a-entity>
+        </a-marker>
+        <a-entity camera></a-entity>
+        </a-scene>
+    </body>
+</html>
 ```
 
-### Basic example with a worker and a NFT marker
+Important! Be aware that if you are referring to external resources, in any app, especially those using NFT, you will encounter CORS problems if those resources are not in the same server of the code. If you can’t see the tracking, please open your Browser Dev Tools and check if you have CORS errors in the console. If so, you have to fix those errors in order to see your content. The correct fix is to place your resources on the same server of your code.
 
-**NFT** (**N**atural **F**eature **T**racking) is a markerless technology that let you track almost any images you want. To use this feature take a look at the **nft_improved_worker** example folder. If you want to create your custom NFT marker you can use the online tool [NFT-Marker-Creator](https://carnaux.github.io/NFT-Marker-Creator/). Before proceeding with the creation of your markers, carefully read the information on the [wiki](https://github.com/Carnaux/NFT-Marker-Creator/wiki/Creating-good-markers).
+If you cannot do that, you can host a proxy anywhere server to solve that (https://github.com/Rob--W/cors-anywhere).
+Please note that several hosting services have policies that does not permit to use such server. Always check hosting services policies before using them to avoid account suspensions
 
-In the code below a summarized example:
+Learn more on the [AR.js Official Documentation](https://ar-js-org.github.io/AR.js-Docs/).
 
+## Troubleshooting, feature requests, community
 
-```js
-<div id="container">
-    <video id="video"></video>
-    <canvas style="position: absolute; left:0; top:0" id="canvas_draw"></canvas>
-</div>
-// main worker create the web worker see in the examples/nft_improved_worker for details
-<script src="main_worker.js"></script>
-<script>
-var container = document.getElementById('container');
-var video = document.getElementById('video');
-var canvas_draw = document.getElementById('canvas_draw');
+**You can find a lot of help on the old [AR.js repositories issues](https://github.com/jeromeetienne/AR.js/issues). Please search on open/closed issues, you may find interesting stuff.**
 
-if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-    var hint = {};
-    if (isMobile()) {
-        hint = {
-            facingMode: {"ideal": "environment"},
-            audio: false,
-            video: {
-                width: {min: 240, max: 240},
-                height: {min: 360, max: 360},
-            },
-        };
-    }
+### Contributing
 
-    navigator.mediaDevices.getUserMedia({video: hint}).then(function (stream) {
-        video.srcObject = stream;
-        video.play();
-        video.addEventListener("loadedmetadata", function() {
-            start(container, markers["pinball"], video, video.videoWidth, video.videoHeight, canvas_draw, function() { statsMain.update() }, function() { statsWorker.update()) };
-        });
-    });
-}
-</script>
-```
+From opening a bug report to creating a pull request: every contribution is
+appreciated and welcome. If you're planning to implement a new feature or change
+the api please create an issue first. This way we can ensure that your precious
+work is not in vain.
 
-## Constants
+### Issues
 
-*prepend all these constants with `Module.` or `artoolkit.CONSTANTS` to access them*
+If you are having configuration or setup problems, please post
+a question to [StackOverflow](https://stackoverflow.com/search?q=ar.js).
+You can also address the question to us in our [Gitter chatroom](https://gitter.im/AR-js/Lobby)
 
-```
-- AR_DEBUG_DISABLE
-- AR_DEBUG_ENABLE
-- AR_DEFAULT_DEBUG_MODE
-- AR_LABELING_WHITE_REGION
-- AR_LABELING_BLACK_REGION
-- AR_DEFAULT_LABELING_MODE
-- AR_DEFAULT_LABELING_THRESH
-- AR_IMAGE_PROC_FRAME_IMAGE
-- AR_IMAGE_PROC_FIELD_IMAGE
-- AR_DEFAULT_IMAGE_PROC_MODE
-- AR_TEMPLATE_MATCHING_COLOR
-- AR_TEMPLATE_MATCHING_MONO
-- AR_MATRIX_CODE_DETECTION
-- AR_TEMPLATE_MATCHING_COLOR_AND_MATRIX
-- AR_TEMPLATE_MATCHING_MONO_AND_MATRIX
-- AR_DEFAULT_PATTERN_DETECTION_MODE
-- AR_USE_TRACKING_HISTORY
-- AR_NOUSE_TRACKING_HISTORY
-- AR_USE_TRACKING_HISTORY_V2
-- AR_DEFAULT_MARKER_EXTRACTION_MODE
-- AR_MAX_LOOP_COUNT
-- AR_LOOP_BREAK_THRESH
-- AR_MATRIX_CODE_3x3
-- AR_MATRIX_CODE_3x3_HAMMING63 5
-- AR_MATRIX_CODE_3x3_PARITY65 2
-- AR_MATRIX_CODE_4x4
-- AR_MATRIX_CODE_4x4_BCH_13_9_3 7
-- AR_MATRIX_CODE_4x4_BCH_13_5_5 10
-- AR_LABELING_THRESH_MODE_MANUAL
-- AR_LABELING_THRESH_MODE_AUTO_MEDIAN
-- AR_LABELING_THRESH_MODE_AUTO_OTSU
-- AR_LABELING_THRESH_MODE_AUTO_ADAPTIVE
-- AR_MARKER_INFO_CUTOFF_PHASE_NONE
-- AR_MARKER_INFO_CUTOFF_PHASE_PATTERN_EXTRACTION
-- AR_MARKER_INFO_CUTOFF_PHASE_MATCH_GENERIC
-- AR_MARKER_INFO_CUTOFF_PHASE_MATCH_CONTRAST
-- AR_MARKER_INFO_CUTOFF_PHASE_MATCH_BARCODE_NOT_FOUND
-- AR_MARKER_INFO_CUTOFF_PHASE_MATCH_BARCODE_EDC_FAIL
-- AR_MARKER_INFO_CUTOFF_PHASE_MATCH_CONFIDENCE
-- AR_MARKER_INFO_CUTOFF_PHASE_POSE_ERROR
-- AR_MARKER_INFO_CUTOFF_PHASE_POSE_ERROR_MULTI
-- AR_MARKER_INFO_CUTOFF_PHASE_HEURISTIC_TROUBLESOME_MATRIX_CODES
-```
+**If you have discovered a bug or have a feature suggestion, feel free to create an issue on Github.**
 
-## Build the tests
+### Submitting Changes
 
-You can run an automated routine to make some tests, in the main jsartoolkit5 folder just run in a console the command:
+After getting some feedback, push to your fork and submit a pull request. We
+may suggest some changes or improvements or alternatives, but for small changes
+your pull request should be accepted quickly.
 
-```
-npm run test
-```
+Some things that will increase the chance that your pull request is accepted:
 
-Then open the tests page:
+* Follow the existing coding style
+* Write a [good commit message](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html)
 
-```
-http://localhost:8085/tests/index.html
-```
+## Licenses
 
-## Build the documentation
+It is **all open-source**! jsartoolkit5 is under LGPLv3 license and additional permission.
+And all my code in the AR.js repository is under MIT license. :)
 
-It is possible to build the api documentation, run this command in the main jsartoolkit5 folder:
+For legal details, be sure to check [jsartoolkit5 license](https://github.com/artoolkitx/jsartoolkit5/blob/master/LICENSE.txt)
+and [AR.js license](https://github.com/AR-js-org/AR.js/blob/master/LICENSE).
 
-```
-npm run create-doc
-```
-
-The api documentation will be created in the **doc** folder. Navigate to the **reference** folder to view the api docs.
-
-## Issue tracker
-
-If you found a bug or you have a feature request, or for any inquiries related to jsartoolkit5 development file an issue at:
-
-[github.com/artoolkitx/jsartoolkit5/issues](https://github.com/artoolkitx/jsartoolkit5/issues)
+Full Changelog: [AR.js changelog](https://github.com/AR-js-org/AR.js/blob/master/CHANGELOG.md)

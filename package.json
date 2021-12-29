@@ -1,41 +1,51 @@
 {
-  "name": "jsartoolkit",
-  "version": "0.0.0",
-  "main": "js/index",
-  "typings": "js/index",
-  "description": "Emscripten port of ARToolKit to JavaScript",
-  "keywords": [
-    "ARToolKit",
-    "AR",
-    "Augmented Reality"
-  ],
-  "author": "ARToolKit (https://github.com/artoolkit)",
-  "repository": "git://https://github.com/artoolkitx/jsartoolkit5.git",
-  "homepage": "https://github.com/artoolkitx/jsartoolkit5",
-  "contributors": [
-    "Github Contributors (https://github.com/artoolkitx/jsartoolkit5/graphs/contributors)"
-  ],
-  "bugs": {
-    "url": "https://github.com/artoolkitx/jsartoolkit5/issues"
-  },
-  "devDependencies": {
-    "grunt": "^0.4.5",
-    "grunt-cli": "^1.2.0",
-    "grunt-jsdoc": "^1.1.0",
-    "http-server": "^0.10.0",
-    "ink-docstrap": "^1.1.4",
-    "jsdoc": "^3.4.0",
-    "opener": "^1.4.3",
-    "qunit": "^2.4.1",
-    "watch": "^0.18.0",
-    "json2csv": "^4.1.5"
-  },
+  "name": "ar.js",
+  "version": "3.3.3",
+  "description": "Efficient Augmented Reality for the Web",
+  "main": "./aframe/build/aframe-ar.js",
   "scripts": {
-    "build-local": "node tools/makem.js; echo Built at `date`",
-    "watch": "./node_modules/.bin/watch 'npm run build' ./js/",
-    "create-doc": "grunt jsdoc",
-    "test": "http-server -p 8085",
-    "open-test": "opener http://localhost:8085/tests/index.html"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "make build"
   },
-  "license": "LGPL-3.0"
+  "files": [
+    "three.js/build",
+    "aframe/build",
+    "data",
+    "three.js/examples/basic.html",
+    "three.js/examples/vendor/three.js/build/three.min.js",
+    "aframe/examples/basic.html",
+    "aframe/examples/vendor/aframe/build/aframe.min.js"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AR-js-org/AR.js.git"
+  },
+  "keywords": [
+    "AR",
+    "VR",
+    "three.js",
+    "aframe",
+    "augmented reality",
+    "location based",
+    "image tracking",
+    "marker based"
+  ],
+  "author": "jeromeetienne@gmail.com",
+  "contributors": [
+    {
+      "name": "Nicolò Carpignoli",
+      "email": "nicolocarpignoli@gmail.com",
+      "url": "https://nicolocarpignoli.github.io/me"
+    },
+    {
+      "name": "Walter Perdan",
+      "email": "info@walterperdan.com",
+      "url": "https://www.walterperdan.com/"
+    }
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AR-js-org/AR.js/issues"
+  },
+  "homepage": "https://github.com/AR-js-org/AR.js/"
 }
