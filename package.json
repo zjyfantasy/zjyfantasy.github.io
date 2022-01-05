@@ -1,48 +1,51 @@
 {
-  "name": "mind-ar",
-  "version": "1.1.0",
-  "description": "web augmented reality framework",
-  "main": "index.js",
+  "name": "ar.js",
+  "version": "3.3.3",
+  "description": "Efficient Augmented Reality for the Web",
+  "main": "./aframe/build/aframe-ar.js",
   "scripts": {
-    "watch": "webpack --watch --config webpack.config.dev.cjs",
-    "build": "webpack --config webpack.config.prod.cjs"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "make build"
   },
-  "engines": {
-    "node": ">=12.0.0"
-  },
-  "type": "commonjs",
+  "files": [
+    "three.js/build",
+    "aframe/build",
+    "data",
+    "three.js/examples/basic.html",
+    "three.js/examples/vendor/three.js/build/three.min.js",
+    "aframe/examples/basic.html",
+    "aframe/examples/vendor/aframe/build/aframe.min.js"
+  ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/hiukim/mind-ar-js"
+    "url": "git+https://github.com/AR-js-org/AR.js.git"
   },
   "keywords": [
-    "web AR",
+    "AR",
+    "VR",
+    "three.js",
     "aframe",
-    "web augmented reality",
+    "augmented reality",
+    "location based",
     "image tracking",
-    "face tracking",
-    "tensorflowjs"
+    "marker based"
   ],
-  "author": "hiukim",
+  "author": "jeromeetienne@gmail.com",
+  "contributors": [
+    {
+      "name": "Nicolò Carpignoli",
+      "email": "nicolocarpignoli@gmail.com",
+      "url": "https://nicolocarpignoli.github.io/me"
+    },
+    {
+      "name": "Walter Perdan",
+      "email": "info@walterperdan.com",
+      "url": "https://www.walterperdan.com/"
+    }
+  ],
   "license": "MIT",
-  "dependencies": {
-    "@msgpack/msgpack": "^1.12.2",
-    "@tensorflow-models/face-landmarks-detection": "0.0.3",
-    "@tensorflow/tfjs": "^3.9.0",
-    "ml-matrix": "^6.6.0",
-    "svd-js": "^1.1.1",
-    "terser-webpack-plugin": "^4.2.3",
-    "three": "^0.132.2",
-    "tinyqueue": "^2.0.3"
+  "bugs": {
+    "url": "https://github.com/AR-js-org/AR.js/issues"
   },
-  "devDependencies": {
-    "css-loader": "^5.1.1",
-    "html-loader": "^2.1.1",
-    "node-sass": "^5.0.0",
-    "sass-loader": "^11.0.1",
-    "style-loader": "^2.0.0",
-    "webpack": "^5.24.3",
-    "webpack-cli": "^4.5.0",
-    "worker-loader": "^2.0.0"
-  }
+  "homepage": "https://github.com/AR-js-org/AR.js/"
 }

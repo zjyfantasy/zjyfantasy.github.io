@@ -1,5 +1,4 @@
-node_modules
-tests
-*.swp
-dist-dev
-dist/*.LICENSE.txt
+.DS_Store
+.atom-live-server.json
+node_modules/*
+package-lock.json

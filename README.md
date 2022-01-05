@@ -1,155 +1,246 @@
-# MindAR
 
-For location-based AR and marker-based AR, checkout AR.js https://github.com/AR-js-org/AR.js
+# AR.js - Augmented Reality on the Web
 
-<img src="https://hiukim.github.io/mind-ar-js-doc/assets/images/multi-targets-demo-8b5fc868f6b0847a9818e8bf0ba2c1c3.gif" height="250"><img src="https://hiukim.github.io/mind-ar-js-doc/assets/images/interactive-demo-1ab348a381cbd808f4d52c8750524d11.gif" height="250"><img src="https://hiukim.github.io/mind-ar-js-doc/assets/images/face-tryon-demo-1e3433ff1dd89795d5c1b385778a9da8.gif" height="250">
+<a href="https://xscode.com/nicolocarpignoli/AR.js">
+  <img src="./AR-JS-banner.png" />
+</a>
 
-MindAR is a lightweight library for web augmented reality. Highlighted features include:
+---
 
-:star: Support Image tracking and Face tracking
+[![Build Status](https://travis-ci.org/jeromeetienne/AR.js.svg?branch=master)](https://travis-ci.org/jeromeetienne/AR.js)
+[![Gitter chat](https://badges.gitter.im/AR-js/Lobby.png)](https://gitter.im/AR-js/Lobby)
+[![Twitter Follow](https://img.shields.io/twitter/follow/nicolocarp.svg?style=plastic&label=nicolocarpignoli-twitter&style=plastic)](https://twitter.com/nicolocarp)
+[![Twitter Follow](https://img.shields.io/twitter/follow/jerome_etienne.svg?style=plastic&label=jeromeetienne-twitter&style=plastic)](https://twitter.com/jerome_etienne)
 
-:star: Written in pure javascript, end-to-end from the underlying computer vision engine to frontend
+AR.js is a lightweight library for Augmented Reality on the Web, coming with features like Image Tracking, Location-based AR and Marker tracking.
 
-:star: Utilize gpu (through webgl) and web worker for performance
+Welcome to the official repository!
 
-:star: Developer friendly. Easy to setup. With AFRAME extension, you can get your app starts with only 10 lines of codes
+This project has been created by [@jeromeetienne](https://github.com/jeromeetienne), previously managed by Nicolò Carpignoli and it is now maintained by the AR.js org.
 
-# Web AR Development Course - Fund Raising
+🚀For frequent updates on AR.js you can follow [@the official Twitter account](https://twitter.com/ARjs_Library) and Watch this repo!
 
-To raise fund for the continuous development and support of the MindAR Library, I've created a WebAR development course. It's a very comprehensive guide to Web AR development, not limited to MindAR. Check it out if you are interested:
+Logo is courtesy of <a href="https://twitter.com/viralinfo"> Simon Poulter </a>.
 
-https://www.udemy.com/course/introduction-to-web-ar-development/?referralCode=D2565F4CA6D767F30D61
+------
 
-![course-banner](https://user-images.githubusercontent.com/459126/141425015-f5fe2912-b26d-4366-8952-5866a072fb34.jpg)
+<h2>You can get paid support and new features for AR.js. Check <a href="https://xscode.com/nicolocarpignoli/AR.js"> this link. </a></h2>
 
-# Managed Solution - Pictarize
-
-This opensource project is under MIT, so you are free to use however you want. There is also a hosted platform built on top of this library called Pictarize, which allows you to build and publish apps directly online. Check it out if you are interested!
-
-https://pictarize.com
-
-<img src="https://drive.google.com/uc?export=view&id=1ygYyPpyvnxyofrIsRQP5oU-iFLu_xABa" border="10"/>
-
-# Documentation
-
-Official Documentation: https://hiukim.github.io/mind-ar-js-doc
-
-# Demo - Try it yourself
-
-### Image Tracking - Basic Example
-<img src="https://hiukim.github.io/mind-ar-js-doc/assets/images/basic-demo-fde07aa7567bf213e61b37dbaa192fec.gif" width="300">
-
-Demo video: https://youtu.be/hgVB9HpQpqY, 
-
-Try it yourself: https://hiukim.github.io/mind-ar-js-doc/examples/basic/
-
-### Image Tracking - Multiple Targets Example
-<img src="https://hiukim.github.io/mind-ar-js-doc/assets/images/multi-targets-demo-8b5fc868f6b0847a9818e8bf0ba2c1c3.gif" width="300">
-
-Try it yourself: https://hiukim.github.io/mind-ar-js-doc/examples/multi-tracks
-
-### Image Tracking - Interactive Example
-<img src="https://hiukim.github.io/mind-ar-js-doc/assets/images/interactive-demo-1ab348a381cbd808f4d52c8750524d11.gif" width="300"/>
-
-Demo video: https://youtu.be/gm57gL1NGoQ
-
-Try it yourself: https://hiukim.github.io/mind-ar-js-doc/examples/interative
-
-### Face Tracking - Virtual Try-On Example
-<img src="https://hiukim.github.io/mind-ar-js-doc/assets/images/face-tryon-demo-1e3433ff1dd89795d5c1b385778a9da8.gif" width="300"/>
-
-Try it yourself: https://hiukim.github.io/mind-ar-js-doc/face-tracking-examples/tryon
-
-### More examples
-More examples can be found here: https://hiukim.github.io/mind-ar-js-doc/examples/summary
+------
 
 
-# Quick Start
-Learn how to build the Basic example above in 5 minutes with a plain text editor! 
+### ⚡️AR.js has now an official Documentation!⚡️
+### Check it out: [AR.js Official Documentation](https://ar-js-org.github.io/AR.js-Docs/).
 
-Quick Start Guide: https://hiukim.github.io/mind-ar-js-doc/quick-start/overview
+If you want to give a first look at AR.js potential, you can continue with this Readme.
 
-To give you a quick idea, this is the complete source code for the Basic example. It's static HTML page, you can host it anywhere.
+-----
 
+
+⚡️ AR.js is coming in two, different builds. They are both maintained. They are exclusive.
+
+Please import the one you need for your project, not both:
+
+- **AR.js with Image Tracking + Location Based AR:**
+
+  - AFRAME version: https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js
+
+  - three.js version: https://raw.githack.com/AR-js-org/AR.js/master/three.js/build/ar-nft.js
+
+- **AR.js with Marker Tracking + Location Based AR:**
+
+  - AFRAME version: https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js
+
+  - three.js version: https://raw.githack.com/AR-js-org/AR.js/master/three.js/build/ar.js
+
+
+You can also import a specific version replacing `master` keyword with version tag:
+
+```html
+  <script src="https://raw.githack.com/AR-js-org/AR.js/3.3.3/aframe/build/aframe-ar-nft.js">
 ```
+
+## Get started
+
+### 🖼 **Image Tracking**
+
+Please follow these simple steps:
+
+- Create a new project with the code below (or [open this live example](https://ar-js-org.github.io/AR.js/aframe/examples/image-tracking/nft/) and go directly to the last step)
+- Run it on a server
+- Open the website on your phone
+- Scan [this picture](https://raw.githubusercontent.com/AR-js-org/AR.js/master/aframe/examples/image-tracking/nft/trex-image-big.jpeg) to see content through the camera.
+
+```html
+<script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1c2407b26c61958baa93967b5412487cd94b290b/dist/aframe-master.min.js"></script>
+<script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+
+<style>
+  .arjs-loader {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .arjs-loader div {
+    text-align: center;
+    font-size: 1.25em;
+    color: white;
+  }
+</style>
+
+<body style="margin : 0px; overflow: hidden;">
+  <!-- minimal loader shown until image descriptors are loaded -->
+  <div class="arjs-loader">
+    <div>Loading, please wait...</div>
+  </div>
+  <a-scene
+    vr-mode-ui="enabled: false;"
+    renderer="logarithmicDepthBuffer: true;"
+    embedded
+    arjs="trackingMethod: best; sourceType: webcam;debugUIEnabled: false;"
+  >
+    <!-- we use cors proxy to avoid cross-origin problems ATTENTION! you need to set up your server -->
+    <a-nft
+      type="nft"
+      url="your-server/https://raw.githack.com/AR-js-org/AR.js/master/aframe/examples/image-tracking/nft/trex/trex-image/trex"
+      smooth="true"
+      smoothCount="10"
+      smoothTolerance=".01"
+      smoothThreshold="5"
+    >
+      <a-entity
+        gltf-model="your-server/https://raw.githack.com/AR-js-org/AR.js/master/aframe/examples/image-tracking/nft/trex/scene.gltf"
+        scale="5 5 5"
+        position="50 150 0"
+      >
+      </a-entity>
+    </a-nft>
+    <a-entity camera></a-entity>
+  </a-scene>
+</body>
+```
+
+### 🌍Location Based Example
+
+Please follow these simple steps:
+
+- Create a new project with the following snippet, and change `add-your-latitude` and `add-your-longitude` with your latitude and longitude, without the `<>`.
+- Run it on a server
+- Activate GPS on your phone and navigate to the example URL
+- Look around. You should see the text looking at you, appearing in the requested position, even if you look around and move.
+
+```html
+<!DOCTYPE html>
 <html>
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.0.0/dist/mindar-image.prod.js"></script>
-    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.0.0/dist/mindar-image.aframe.js"></script>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>GeoAR.js demo</title>
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
   </head>
-  <body>
-    <a-scene mindar-image="imageTargetSrc: https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.0.0/examples/image-tracking/assets/card-example/card.mind;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
-      <a-assets>
-        <img id="card" src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.0.0/examples/image-tracking/assets/card-example/card.png" />
-        <a-asset-item id="avatarModel" src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.0.0/examples/image-tracking/assets/card-example/softmind/scene.gltf"></a-asset-item>
-      </a-assets>
 
-      <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
-
-      <a-entity mindar-image-target="targetIndex: 0">
-        <a-plane src="#card" position="0 0 0" height="0.552" width="1" rotation="0 0 0"></a-plane>
-        <a-gltf-model rotation="0 0 0 " position="0 0 0.1" scale="0.005 0.005 0.005" src="#avatarModel" animation="property: position; to: 0 0.1 0.1; dur: 1000; easing: easeInOutQuad; loop: true; dir: alternate">
-      </a-entity>
+  <body style="margin: 0; overflow: hidden;">
+    <a-scene
+      vr-mode-ui="enabled: false"
+      embedded
+      arjs="sourceType: webcam; debugUIEnabled: false;"
+    >
+      <a-text
+        value="This content will always face you."
+        look-at="[gps-camera]"
+        scale="120 120 120"
+        gps-entity-place="latitude: <add-your-latitude>; longitude: <add-your-longitude>;"
+      ></a-text>
+      <a-camera gps-camera rotation-reader> </a-camera>
     </a-scene>
   </body>
 </html>
 ```
 
-# Target Images Compiler
-You can compile your own target images right on the browser using this friendly Compiler tools. If you don't know what it is, go through the Quick Start guide 
+### 🔲 Marker Based Example
 
-https://hiukim.github.io/mind-ar-js-doc/tools/compile
+Please follow this simple steps:
 
-<img src="https://hiukim.github.io/mind-ar-js-doc/assets/images/step2-9f3c4dcb8a2e60766d86f950d06929ea.png" width="300"/>
+- Create a new project with the code below (or [open this live example](https://ar-js-org.github.io/AR.js/aframe/examples/marker-based/basic.html) and go directly to the last step)
+- Run it on a server
+- Open the website on your phone
+- Scan [this picture](https://raw.githubusercontent.com/AR-js-org/AR.js/master/data/images/hiro.png) to see content through the camera.
 
-# Roadmaps
-1. Supports more augmented reality features, like Plane Tracking
+```html
+<!DOCTYPE html>
+<html>
+    <script src="https://aframe.io/releases/1.0.0/aframe.min.js"></script>
+    <!-- we import arjs version without NFT but with marker + location based support -->
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+    <body style="margin : 0px; overflow: hidden;">
+        <a-scene embedded arjs>
+        <a-marker preset="hiro">
+            <!-- we use cors proxy to avoid cross-origin problems ATTENTION! you need to set up your server -->
+            <a-entity
+            position="0 -1 0"
+            scale="0.05 0.05 0.05"
+            gltf-model="your-server/https://raw.githack.com/AR-js-org/AR.js/master/aframe/examples/image-tracking/nft/trex/scene.gltf"
+            ></a-entity>
+        </a-marker>
+        <a-entity camera></a-entity>
+        </a-scene>
+    </body>
+</html>
+```
 
-2. Research on different state-of-the-arts algorithms to improve tracking accuracy and performance
+Important! Be aware that if you are referring to external resources, in any app, especially those using NFT, you will encounter CORS problems if those resources are not in the same server of the code. If you can’t see the tracking, please open your Browser Dev Tools and check if you have CORS errors in the console. If so, you have to fix those errors in order to see your content. The correct fix is to place your resources on the same server of your code.
 
-3. More educational references.
+If you cannot do that, you can host a proxy anywhere server to solve that (https://github.com/Rob--W/cors-anywhere).
+Please note that several hosting services have policies that does not permit to use such server. Always check hosting services policies before using them to avoid account suspensions
 
-# Contributions
-I personally don't come from a strong computer vision background, and I'm having a hard time improving the tracking accuracy. I could really use some help from computer vision expert. Please reach out and discuss.
+Learn more on the [AR.js Official Documentation](https://ar-js-org.github.io/AR.js-Docs/).
 
-Also welcome javascript experts to help with the non-engine part, like improving the APIs and so.
+## Troubleshooting, feature requests, community
 
-If you are graphics designer or 3D artists and can contribute to the visual. Even if you just use MindAR to develop some cool applications, please show us!
+**You can find a lot of help on the old [AR.js repositories issues](https://github.com/jeromeetienne/AR.js/issues). Please search on open/closed issues, you may find interesting stuff.**
 
-Whatever you can think of. It's an opensource web AR framework for everyone!
+### Contributing
 
-# Development Guide
+From opening a bug report to creating a pull request: every contribution is
+appreciated and welcome. If you're planning to implement a new feature or change
+the api please create an issue first. This way we can ensure that your precious
+work is not in vain.
 
-#### Directories explained
+### Issues
 
-1. `/src` folder contains majority of the source code
-2. `/dist` folder contains the built library
-3. `/examples` folder contains examples to test out during development
+If you are having configuration or setup problems, please post
+a question to [StackOverflow](https://stackoverflow.com/search?q=ar.js).
+You can also address the question to us in our [Gitter chatroom](https://gitter.im/AR-js/Lobby)
 
-#### To create a production build
+**If you have discovered a bug or have a feature suggestion, feel free to create an issue on Github.**
 
-run `> npm run build`. `mindar-XXX.prod.js` and `mindar-XXX-aframe.propd.js will be generated for each tracking type.
+### Submitting Changes
 
-#### For development
+After getting some feedback, push to your fork and submit a pull request. We
+may suggest some changes or improvements or alternatives, but for small changes
+your pull request should be accepted quickly.
 
-run `> npm run watch`. This will observe the file changes in `src` folder and continuously build a `mindar-XXX.js` and `mindar-XXX-aframe` inside the `dist-dev` folder. The examples inside the `examples` folder is using this development build. You can open this examples in browser to start debug/development. 
+Some things that will increase the chance that your pull request is accepted:
 
-The examples should run in desktop browser and they are just html files, so it's easy to start development. However, because it requires camera access, so you need a webcam. Also, you need to run the html file with some localhost web server. Simply opening the files won't work.
+* Follow the existing coding style
+* Write a [good commit message](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html)
 
-For example, you can install this chrome plugin to start a local server: `https://chrome.google.com/webstore/detail/web-server-for-chrome/ofhbbkphhbklhfoeikjpcbhemlocgigb?hl=en`
+## Licenses
 
-You most likely would want to test on mobile device as well. In that case, it's better if you could setup your development environment to be able to share your localhost webserver to your mobile devices. If you have difficulties doing that, perhaps behind a firewall, then you could use something like `ngrok` (https://ngrok.com/) to tunnel the request. But this is not an ideal solution, because the development build of MindAR is not small (>10Mb), and tunneling with free version of `ngrok` could be slow.
+It is **all open-source**! jsartoolkit5 is under LGPLv3 license and additional permission.
+And all my code in the AR.js repository is under MIT license. :)
 
-#### webgl backend
-This library utilize tensorflowjs (https://github.com/tensorflow/tfjs) for webgl backend. Yes, tensorflow is a machine learning library, but we didn't use it for machine learning! :) Tensorflowjs has a very solid webgl engine which allows us to write general purpose GPU application (in this case, our AR application). 
+For legal details, be sure to check [jsartoolkit5 license](https://github.com/artoolkitx/jsartoolkit5/blob/master/LICENSE.txt)
+and [AR.js license](https://github.com/AR-js-org/AR.js/blob/master/LICENSE).
 
-The core detection and tracking algorithm is written with custom operations in tensorflowjs. They are like shaders program. It might looks intimidating at first, but it's actually not that difficult to understand.
-
-# Credits
-The computer vision idea is borrowed from artoolkit (i.e. https://github.com/artoolkitx/artoolkit5). Unfortunately, the library doesn't seems to be maintained anymore.
-
-Face Tracking is based on tensorflowjs face landmark detection mode (i.e. https://github.com/tensorflow/tfjs-models/tree/master/face-landmarks-detection). It also utilize this face geometry library: https://github.com/spite/FaceMeshFaceGeometry
-
+Full Changelog: [AR.js changelog](https://github.com/AR-js-org/AR.js/blob/master/CHANGELOG.md)
