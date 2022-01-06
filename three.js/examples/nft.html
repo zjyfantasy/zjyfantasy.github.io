@@ -186,53 +186,50 @@
     var threeGLTFLoader = new THREE.GLTFLoader();
     var model;
 
-    threeGLTFLoader.load(
-      /*"./resources/Flamingo.glb"*/ "https://file.biaddti.com/arbuilding/public/miniprogram/pkx/models/AR_book2.glb",
-      function (gltf) {
-        model = gltf.scene.children[0];
-        model.name = "Flamingo";
+    threeGLTFLoader.load("./resources/robot.glb", function (gltf) {
+      model = gltf.scene.children[0];
+      model.name = "Flamingo";
 
-        var animation = gltf.animations[0];
-        var mixer = new THREE.AnimationMixer(model);
-        mixers.push(mixer);
-        var action = mixer.clipAction(animation);
-        action.play();
+      var animation = gltf.animations[0];
+      var mixer = new THREE.AnimationMixer(model);
+      mixers.push(mixer);
+      var action = mixer.clipAction(animation);
+      action.play();
 
-        root.matrixAutoUpdate = false;
-        root.add(model);
-        model.position.set(10, 10, 10);
-        model.scale.set(23, 23, 23);
-        // model.position.z = -200;
-        // model.position.x = 100;
-        // model.position.y = 100;
+      root.matrixAutoUpdate = false;
+      root.add(model);
+      model.position.set(10, 10, 10);
+      model.scale.set(23, 23, 23);
+      // model.position.z = -200;
+      // model.position.x = 100;
+      // model.position.y = 100;
 
-        //////////////////////////////////////////////////////////////////////////////////
-        //		render the whole thing on the page
-        //////////////////////////////////////////////////////////////////////////////////
+      //////////////////////////////////////////////////////////////////////////////////
+      //		render the whole thing on the page
+      //////////////////////////////////////////////////////////////////////////////////
 
-        var animate = function () {
-          requestAnimationFrame(animate);
-
-          if (mixers.length > 0) {
-            for (var i = 0; i < mixers.length; i++) {
-              mixers[i].update(clock.getDelta());
-            }
-          }
-
-          if (!arToolkitSource.ready) {
-            return;
-          }
-
-          arToolkitContext.update(arToolkitSource.domElement);
-
-          // update scene.visible if the marker is seen
-          scene.visible = camera.visible;
-
-          renderer.render(scene, camera);
-        };
-
+      var animate = function () {
         requestAnimationFrame(animate);
-      }
-    );
+
+        if (mixers.length > 0) {
+          for (var i = 0; i < mixers.length; i++) {
+            mixers[i].update(clock.getDelta());
+          }
+        }
+
+        if (!arToolkitSource.ready) {
+          return;
+        }
+
+        arToolkitContext.update(arToolkitSource.domElement);
+
+        // update scene.visible if the marker is seen
+        scene.visible = camera.visible;
+
+        renderer.render(scene, camera);
+      };
+
+      requestAnimationFrame(animate);
+    });
   </script>
 </body>
