@@ -170,7 +170,7 @@
         var threeGLTFLoader = new THREE.GLTFLoader();
         var model;
 
-        threeGLTFLoader.load("./resources/Flamingo.glb", function (gltf) {
+        threeGLTFLoader.load(/*"./resources/Flamingo.glb"*/'https://file.biaddti.com/arbuilding/public/miniprogram/pkx/models/AR_book2.glb', function (gltf) {
             model = gltf.scene.children[0];
             model.name = 'Flamingo';
 
