@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+	<title>真实导航</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
+	<script src="./lib/fengmap.map.min.js"></script>
+	<script src="./lib/fengmap.analyser.min.js"></script>
+	<script src="./lib/fengmap.plugin.min.js"></script>
+	<link rel="stylesheet" href="./style/fengmap.css">
+	<script src="js/navi.js"></script>
+	<script src="js/data.js"></script>
+	
+</head>
+
+<body>
+	<div class="navi-info"></div>
+	<div id="fengmap"></div>
+</body>
+<script>
+
+	// 定义全局map变量
+	var map = null;
+	var analyser = null;
+	// 路径偏移的最小距离，在最小距离以内坐标点自动约束到路径线上
+	var minOffsetDis = 3;
+	//路径偏移的最大距离，单位：米
+	var maxOffsetDis = 13;
+	var interval = null;
+	var points = [];
+
+
+	var startPoints = {
+		level: 1,
+		x: naviRealPoints[0].x,
+		y: naviRealPoints[0].y,
+		height: 3,
+		url: './images/start.png',
+		size: 32
+	};
+
+	var endPoints = {
+		level: 4,
+		x: naviRealPoints[1].x,
+		y: naviRealPoints[1].y,
+		height: 3,
+		url: './images/end.png',
+		size: 32
+	};
+
+	var locationMarker = new fengmap.FMLocationMarker({
+		x: naviRealPoints[0].x, 
+		y: naviRealPoints[0].y, 
+		url: './images/bluedot-arrow.png', 
+		level: naviRealPoints[0].level,
+		size: 48,  
+		height: 1, 
+	})
+
+
+	window.onload = function () {
+		openMap();
+	};
+
+
+	function openMap() {
+
+		map = new fengmap.FMMap({
+			container: document.getElementById('fengmap'),
+			mapID: '1321274646113083394',
+			appName: '蜂鸟研发SDK_2_0',
+			key: '57c7f309aca507497d028a9c00207cf8',
+		});
+
+		map.on("loaded", () => {
+			locationMarker.addTo(map);
+			testNavi();
+		})
+
+
+		function testNavi() {
+			analyser = new fengmap.FMNaviAnalyser({ map: map }, () => {
+
+				testNavigation();
+
+			}, (error) => {
+				console.log(error);
+			});
+		}
+
+		//初始化导航参数
+		function testNavigation() {
+
+			var navigation = new fengmap.FMNavigation({
+				map: map,
+				analyser: analyser,
+				locationMarkerUrl: './images/bluedot-arrow.png',
+				locationMarkerSize: 48,
+				linePassed: true
+			});
+
+
+			navigation.setStartPoint(startPoints);
+			navigation.setDestPoint(endPoints);
+
+			navigation.route({}, (result) => {
+
+				navigation.drawNaviLine();
+				
+				//定时器
+				onUpdateLocation(info=>{
+					navigation.locate(info);
+				});
+			
+			}, (result) => {
+				console.log("failed", result);
+			});
+
+
+			navigation.on('walking', (data) => {
+
+				updateUI(navigation.naviResult.subs[data.index].instruction.zh + ' 距离终点：' + data.remain.toFixed(2) + '米');
+
+				//更新定位图标的位置及旋转角度
+				setLocationMakerPosition(data.point,data.angle);
+
+				//当剩余距离小于设置的距离终点的最小距离时，自动结束导航
+				if (data.distance > maxOffsetDis) {
+
+					console.log('路径偏移，重新规划路线');
+					
+					// 清除循环
+					stopUpdateLocation()
+
+					// 重新绘制导航线
+					resetNaviRoute(navigation, data.point);
+				}
+			});
+
+			navigation.on('complete', (info) => {
+				console.log(info);
+			});
+		}
+
+
+		/**
+		 * 设置定位标注点位置信息
+		 * */
+
+		function setLocationMakerPosition(coord,angle) {
+
+			if (angle) {
+
+				// 定位点方向始终与路径线保持平行
+				locationMarker.rotateTo({
+					heading: -angle,
+					duration: 0.5
+				});
+
+				// 第一人称需旋转地图角度
+				map.setRotation({
+					animate: true,
+					duration: 0.5,
+					rotation: angle,
+				})
+
+			}
+
+			//不同楼层
+			var level = locationMarker.level;
+			if (level !== coord.level) {
+
+				//重新设置聚焦楼层
+				map.setLevel({
+					animate: false,
+					duration: 1,
+					level: coord.level,
+				})
+
+				locationMarker.remove();
+				//更新起点坐标
+				locationMarker = new fengmap.FMLocationMarker({
+					x: coord.x,  
+					y: coord.y,  
+					url: './images/bluedot-arrow.png', 
+					level: coord.level, 
+					size: 48,   
+					height: 1,  
+				});
+				locationMarker.addTo(map);
+			}
+
+			//移动locationMarker
+			var data = {
+				x: coord.x,
+				y: coord.y,
+				level: coord.level,
+				duration: 0.5,
+				animate:true
+			};
+
+			//移动locationMarker
+			locationMarker.moveTo(data);
+		}
+	
+
+
+		/**
+		 * 路径偏移，进行路径重新规划
+		 * */
+		function resetNaviRoute(navi, coords) {
+
+			// 更新起点坐标
+			navi.setStartPoint({
+				x: realPoints2[0].x,
+				y: realPoints2[0].y,
+				level: coords.level,
+				height: 3,
+				url: './images/start.png',
+				size: 32
+			});
+
+			navi.route({}, (result) => {
+
+				navi.clearNaviLine();
+				navi.drawNaviLine();
+
+				
+                falg = false;
+				_index1 = 0;
+				onUpdateLocation(info=>{
+					navi.locate(info);
+
+				});
+
+			}, (result) => {
+				console.log("failed", result);
+			});
+		}
+	}
+
+
+
+
+	/* 导航路径文字描述 */
+	function updateUI(msg) {
+		var infoDiv = document.body.getElementsByClassName('navi-info')[0];
+		infoDiv.innerText = msg;
+	}
+
+</script>
+
+</html>

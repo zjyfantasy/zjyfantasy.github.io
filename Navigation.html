@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <title>模拟导航</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">	
+    <script src="./lib/fengmap.map.min.js"></script>
+    <script src="./lib/fengmap.analyser.min.js"></script>
+    <script src="./lib/fengmap.plugin.min.js"></script>
+    <link rel="stylesheet" href="./style/fengmap.css">
+</head>
+
+<body>
+    <div class="navi-info"></div>
+    <div id="fengmap"></div>
+</body>
+<script>
+    var map, state;
+    var options = {
+        appName: '蜂鸟研发SDK_2_0',
+        key: '57c7f309aca507497d028a9c00207cf8',
+        mapID: '1321274646113083394',
+        container: document.getElementById('fengmap'),
+        visibleLevels: [1, 2, 3, 4, 5]
+    }
+    map = new fengmap.FMMap(options);
+
+    map.on('loaded', function() {
+        var routeOpiton = {
+            start: {
+                level: 1,
+                x: 12619599.4879,
+                y: 2621862.5465,
+                url: './images/red.png',
+                size: 32,
+                height: 3
+            },
+            end: {
+                level: 4,
+                x: 12619629.8035,
+                y: 2621861.1648,
+                url: './images/red.png',
+                size: 32,
+                height: 3
+            },
+
+            mode: fengmap.FMNaviMode.MODULE_SHORTEST,
+            priority: fengmap.FMNaviPriority.PRIORITY_DEFAULT
+        }
+
+        var analyser = new fengmap.FMNaviAnalyser(options, function() {
+            navi = new fengmap.FMNavigation({
+                map: map,
+                // followPosition: false,
+                analyser: analyser,
+                locationMarkerUrl: './images/bluedot-arrow.png',
+                locationMarkerSize: 48
+            });
+            navi.setStartPoint(routeOpiton.start);
+            navi.setDestPoint(routeOpiton.end);
+            navi.route(routeOpiton, function(result) {
+                var line = navi.drawNaviLine();
+                navi.overview({
+                    ratio: 1.3
+                }, function() {
+                    setTimeout(function() {
+                        navi.simulate();
+                    }, 800);
+                });
+            }, function(error) {
+                console.error(error)
+            });
+
+            navi.on('walking', function(info) {
+                /* 在导航过程中，通过 walking 的回调参数中的 info.index 参数来判断当前行进中的路段，从 FMNavigation 中的  naviResult.subs 中获取当前路段的文字指引 */
+                updateUI(navi.naviResult.subs[info.index].instruction.zh + ' 距离终点：' + info.remain.toFixed(2) + '米')
+            });
+        }, (error) => {
+            console.log(error);
+        });      
+    });
+
+    /* 没什么用的方法，纯粹为了更新界面的提示 */
+    function updateUI(msg) {
+        var infoDiv = document.body.getElementsByClassName('navi-info')[0];
+        infoDiv.innerText = msg;
+    }
+</script>
+
+</html>
