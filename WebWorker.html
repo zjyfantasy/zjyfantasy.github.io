@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>模拟实时导航</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">	
+    <script src="./lib/fengmap.map.min.js"></script>
+    <script src="./lib/fengmap.plugin.min.js"></script>
+    <script src="./lib/analyser.js"></script>
+    <link rel="stylesheet" href="./style/fengmap.css">
+</head>
+
+<body>
+    <div id="fengmap"></div>
+</body>
+<script>
+    /* 所需的全局变量 */
+    var map;
+    var mapReady = false;
+    var options = {
+        appName: '蜂鸟研发SDK_2_0',
+        key: '57c7f309aca507497d028a9c00207cf8',
+        mapID: '1321274646113083394',
+        container: document.getElementById('fengmap')
+    };
+    var navigation;
+    var naviReady = false;
+
+    /* 示例用的起点和终点数据 */
+    var request = {
+        start: {
+            level: 1,
+            x: 12619612.556779679,
+            y: 2621854.2805
+        },
+        dest: {
+            level: 5,
+            x: 12619608.229031052,
+            y: 2621867.9186
+        }
+    }
+
+    /* 定义，初始化方法 */
+    function init(cb) {
+        map = new fengmap.FMMap(options);
+        map.on('loaded', function() {
+            mapReady = true;
+            if (naviReady && mapReady) {
+                route();
+            }
+        })
+
+        var analyser = new NaviAnalyser(function() {
+            navigation = new fengmap.FMNavigation({
+                map: map,
+                analyser: analyser,
+                locationMarkerUrl: './images/bluedot-arrow.png',
+                locationMarkerSize: 32,
+            });
+            cb && cb();
+        });
+    }
+
+    /* 定义，执行路径计算方法 */
+    function route() {
+        navigation.setStartPoint(request.start);
+        navigation.setDestPoint(request.dest);
+        navigation.route({
+            mode: fengmap.FMNaviMode.MODULE_SHORTEST,
+            priority: fengmap.FMNaviPriority.PRIORITY_DEFAULT,
+            toDooors: true
+        }, (result) => {
+            console.log("sucess", result);
+            navigation.drawNaviLine();
+            navigation.overview(1.0, function() {
+                setTimeout(function() {
+                    navigation.simulate();
+                }, 1000)
+            });
+        }, (result) => {
+            console.log("failed", result);
+        });
+        /* 导航过程中的回调函数 */
+        navigation.on('walking', (info) => {
+            console.log(info);
+        });
+        navigation.on('complete', (info) => {
+            console.log(info);
+        });
+    }
+
+    /* 执行初始化 */
+    init(function() {
+        naviReady = true;
+        if (naviReady && mapReady) {
+            route();
+        }
+    })
+</script>
+
+</html>
